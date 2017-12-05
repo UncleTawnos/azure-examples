@@ -1,0 +1,46 @@
+#cloud-config
+write_files:
+  - path: /etc/apt/conf.d/recommends.conf
+    content: |
+      APT::Install-Recommends "false";
+      APT::Install-Suggests "false";
+    permissions: '0644'
+  - path: /etc/rc.local
+    content: |
+      #!/bin/sh
+      echo 2dd1ce17-079e-403c-b352-a1921ee207ee > /sys/bus/vmbus/drivers/hv_util/unbind
+      exit 0
+    permissions: 0755
+apt_upgrade: true
+packages:
+  - patch
+  - gawk
+  - bash-completion
+  - aptitude
+  - vim-nox
+runcmd:
+  - echo 2dd1ce17-079e-403c-b352-a1921ee207ee > /sys/bus/vmbus/drivers/hv_util/unbind
+  - timedatectl set-timezone Europe/Warsaw
+  - mkdir -p /etc/bash.bashrc.d
+  - wget https://raw.githubusercontent.com/UncleTawnos/bashmash/master/system_aliases -O /etc/bash.bashrc.d/system_aliases
+  - wget https://raw.githubusercontent.com/UncleTawnos/bashmash/master/bash_time_history -O /etc/bash.bashrc.d/bash_time_history
+  - wget https://raw.githubusercontent.com/UncleTawnos/bashmash/master/vimrc.local -O /etc/vim/vimrc.local
+  - wget https://raw.githubusercontent.com/UncleTawnos/bashmash/master/bashrc.patch -O /tmp/bashrc.patch && patch --dry-run /etc/bash.bashrc < /tmp/bashrc.patch && patch /etc/bash.bashrc < /tmp/bashrc.patch
+users:
+  - name: tech
+    groups: sudo
+    shell: /bin/bash
+    sudo: ['ALL=(ALL) NOPASSWD:ALL']
+    ssh-authorized-keys:
+      - ssh-rsa <SSH PUBLIC KEY>
+final_message: "The system is finally up, after $UPTIME seconds"
+power_state:
+ delay: "+1"
+ mode: reboot
+ message: "Rebooting..."
+ timeout: 30
+ condition: True
+
+#COMMENTS
+# 1. Due to strange behaviour of Hyper-V time sync device, we have to unbind it or face unexpected behaviour of some applications as well as a lot of log entries
+#    https://social.msdn.microsoft.com/Forums/azure/en-US/8c0a1026-0b02-405a-848e-628e68229eaf/i-have-a-lot-of-time-has-been-changed-in-the-journal-of-my-linux-boxes?forum=WAVirtualMachinesforWindows
