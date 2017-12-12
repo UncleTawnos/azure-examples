@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: nginx-lb
+  name: myapp
 spec:
   ports:
     - name: http
@@ -10,9 +10,6 @@ spec:
     - name: https
       port: 443
       targetPort: 443
-    - name: cadvisor
-      port: 8080
-      targetPort: 8080
   selector:
     app: frontend
     tier: frontend
@@ -28,7 +25,7 @@ metadata:
 spec:
   strategy:
     type: Recreate
-  replicas: 5
+  replicas: 1
   template:
     metadata:
       labels:
