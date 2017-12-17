@@ -1,8 +1,9 @@
 #!/bin/bash -ex
 
-RESOUCE_GROUP="test-network-k8s"
-CLUSTER_NAME="test-network-k8s"
-DNS_PREFIX="test-network-k8s"
+UNIQ=`=`pwgen 6 1`
+RESOUCE_GROUP="demo-k8s"
+CLUSTER_NAME="demo-k8s"
+DNS_PREFIX="${UNIQ}-demo-k8s"
 
 az provider register --namespace Microsoft.Network
 az provider register --namespace Microsoft.Compute
@@ -12,8 +13,8 @@ az group create --name ${RESOUCE_GROUP} --location westeurope
 
 az acs create --orchestrator-type Kubernetes \
     --dns-prefix ${DNS_PREFIX} \
-    --master-count 3 \
-    --agent-count 4 \
+    --master-count 1 \
+    --agent-count 3 \
     --agent-vm-size Standard_D2_v2 \
     --name ${CLUSTER_NAME} \
     --resource-group ${RESOUCE_GROUP}
