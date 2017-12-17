@@ -9,7 +9,9 @@ don't use `create` as it mess up with further updates.
 
 
 ## How to run
-1. `./cluster.sh`
+1. `kubectl apply -f frontend-basic.yml`
 2. `./configmap.sh`
-3. `kubectl apply -f nginx-ssl-secret.yml`
-4. `kubectl apply -f frontend.yml`
+3. `kubectl apply -f frontend-nginx.yml`
+4. `./configmap-ssl.sh`
+5. `kubectl apply -f nginx-ssl-secret.yml`
+6. `kubectl apply -f frontend-full.yml`
