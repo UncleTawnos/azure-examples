@@ -43,7 +43,7 @@ spec:
           - name: nginx-vhost
             mountPath: /etc/nginx/conf.d
         - name: cadv
-          image: proxdocker.azurecr.io/helloworld:v0.3
+          image: google/cadvisor
           ports:
           - containerPort: 8080
       volumes:

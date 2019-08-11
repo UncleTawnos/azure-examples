@@ -32,9 +32,9 @@ spec:
         - name: regcred
       containers:
         - name: cadv
-          image: proxdocker.azurecr.io/helloworld:v0.3
+          image: google/cadvisor
           env:
             - name: db_host
-              value: "Proximity"
+              value: "1.2.3.4"
           ports:
           - containerPort: 80
