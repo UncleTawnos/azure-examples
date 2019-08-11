@@ -1,0 +1,36 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: ingress-nginx-public
+  namespace: ingress-nginx-public
+  labels:
+    app: ingress-nginx-public
+spec:
+  externalTrafficPolicy: Local
+  type: LoadBalancer
+  #loadBalancerIP: 51.144.39.140
+  selector:
+    app: ingress-nginx-public
+  ports:
+  - name: http
+    port: 80
+    targetPort: http
+  - name: https
+    port: 443
+    targetPort: https
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: ingress-nginx-public-metrics
+  namespace: ingress-nginx-public
+  labels:
+    app: ingress-nginx-public-metrics
+spec:
+  type: ClusterIP
+  selector:
+    app: ingress-nginx-public
+  ports:
+  - name: metrics
+    port: 10254
+    targetPort: 10254

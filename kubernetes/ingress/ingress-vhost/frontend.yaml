@@ -1,0 +1,23 @@
+---
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: aischools-ingress-main
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
+    kubernetes.io/ingress.class: "nginx-public"
+    nginx.ingress.kubernetes.io/ssl-redirect: "true"
+    nginx.ingress.kubernetes.io/from-to-www-redirect: "true"
+spec:
+  tls:
+    - hosts:
+      - frontend.example.com
+      secretName: nginx-ssl
+  rules:
+    - host: frontent.example.com
+      http:
+        paths:
+          - path: /
+            backend:
+              serviceName: frontend
+              servicePort: 8080

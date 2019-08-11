@@ -6,10 +6,9 @@ spec:
   ports:
     - name: cadvisor
       port: 8080
+      targetPort: 80
   selector:
     app: frontend
-    tier: frontend
-    track: stable
     color: blue
   type: LoadBalancer
 ---
@@ -20,8 +19,7 @@ metadata:
   name: frontend
 spec:
   strategy:
-    type: Recreate
-  replicas: 1
+    type: RollingUpdate
   template:
     metadata:
       labels:
@@ -30,8 +28,13 @@ spec:
         track: stable
         color: blue
     spec:
+      imagePullSecrets:
+        - name: regcred
       containers:
         - name: cadv
-          image: google/cadvisor
+          image: proxdocker.azurecr.io/helloworld:v0.3
+          env:
+            - name: db_host
+              value: "Proximity"
           ports:
-          - containerPort: 8080
+          - containerPort: 80

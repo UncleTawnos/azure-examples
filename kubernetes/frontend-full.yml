@@ -24,8 +24,7 @@ metadata:
   name: frontend
 spec:
   strategy:
-    type: Recreate
-  replicas: 1
+    type: RollingUpdate
   template:
     metadata:
       labels:
@@ -44,7 +43,7 @@ spec:
           - name: nginx-vhost
             mountPath: /etc/nginx/conf.d
         - name: cadv
-          image: google/cadvisor
+          image: proxdocker.azurecr.io/helloworld:v0.3
           ports:
           - containerPort: 8080
       volumes:
