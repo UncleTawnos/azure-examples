@@ -38,6 +38,13 @@ spec:
               value: "k8s app"
           ports:
           - containerPort: 80
+          volumeMounts:
+            - name: frontend-upload
+              mountPath: /srv/upload
+      volumes:
+        - name: frontend-upload
+          persistentVolumeClaim:
+            claimName: frontend-upload
 
 ---
 kind: PersistentVolumeClaim
@@ -49,5 +56,5 @@ spec:
     - ReadWriteOnce
   resources:
     requests:
-      storage: 1Gi
+      storage: 32Gi
   volumeMode:
