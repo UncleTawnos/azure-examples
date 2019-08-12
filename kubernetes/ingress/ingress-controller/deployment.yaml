@@ -31,7 +31,7 @@ spec:
                   - key: agentpool
                     operator: In
                     values:
-                      - generalpool
+                      - agentpool
       serviceAccountName: ingress-nginx-public-serviceaccount
       containers:
         - name: nginx-ingress-controller
@@ -71,8 +71,11 @@ spec:
             containerPort: 443
           resources:
             requests:
-              memory: 2560M
+              memory: 256M
               cpu: 500m
+            limits:
+              memory: 500M
+              cpu: 750m
           livenessProbe:
             failureThreshold: 3
             httpGet:
