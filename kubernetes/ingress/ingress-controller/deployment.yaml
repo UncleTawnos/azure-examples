@@ -18,8 +18,6 @@ spec:
       labels:
         app: ingress-nginx-public
       annotations:
-        prometheus.io/port: '10254'
-        prometheus.io/scrape: 'true'
         #@deprecated: this annotation is deprecated since k8s 1.13
         scheduler.alpha.kubernetes.io/critical-pod: ''
     spec:
@@ -44,7 +42,6 @@ spec:
             - --annotations-prefix=nginx.ingress.kubernetes.io
             - --ingress-class=nginx-public
             - --publish-service=$(POD_NAMESPACE)/ingress-nginx-public
-            - --default-ssl-certificate=default/synerise-wildcard-ssl
             - --annotations-prefix=nginx.ingress.kubernetes.io
           securityContext:
             allowPrivilegeEscalation: true
