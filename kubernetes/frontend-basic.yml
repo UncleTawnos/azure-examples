@@ -10,7 +10,7 @@ spec:
   selector:
     app: frontend
     color: blue
-  type: LoadBalancer
+  type: ClusterIP
 ---
 
 apiVersion: extensions/v1beta1
@@ -32,9 +32,22 @@ spec:
         - name: regcred
       containers:
         - name: cadv
-          image: google/cadvisor
+          image: proxdocker.azurecr.io/helloworld:v0.5
           env:
-            - name: db_host
-              value: "1.2.3.4"
+            - name: creator
+              value: "k8s app"
           ports:
           - containerPort: 80
+
+---
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: frontend-upload
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi
+  volumeMode:
