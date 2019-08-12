@@ -23,7 +23,7 @@ spec:
                   - key: agentpool
                     operator: In
                     values:
-                      - computepool
+                      - agentpool
       terminationGracePeriodSeconds: 60
       containers:
       - name: default-http-backend

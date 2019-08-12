@@ -71,7 +71,7 @@ spec:
             containerPort: 443
           resources:
             requests:
-              memory: 256M
+              memory: 250M
               cpu: 500m
             limits:
               memory: 500M
