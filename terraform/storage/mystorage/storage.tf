@@ -10,7 +10,7 @@ resource "azurerm_storage_account" "mystorage" {
     deployment  = "terraform"
     environment = "${var.environment}"
     type        = "${var.type}"
-    creator     = "${var.current_user}"
+    creator     = "${var.creator}"
   }
 }
 

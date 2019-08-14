@@ -18,6 +18,6 @@ variable "resource_group" {
 }
 
 # type username e.g sfyda
-variable "deployer" {
+variable "creator" {
     default = "my-name"
 }

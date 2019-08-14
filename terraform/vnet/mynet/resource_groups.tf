@@ -6,6 +6,6 @@ resource "azurerm_resource_group" "primary-networking" {
         deployment = "terraform",
         environment = "${var.environment}",
         type = "${var.type}",
-        creator = "${var.deployer}",
+        creator = "${var.creator}",
     }
 }

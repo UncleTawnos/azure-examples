@@ -7,7 +7,7 @@ variable "environment" {
 }
 
 variable "type" {
-  default = "storage"
+  default = "acr"
 }
 
 variable "region" {
@@ -15,14 +15,13 @@ variable "region" {
 }
 
 variable "resource_group" {
-  default = "storage"
+  default = "acr"
 }
 
-variable "resource_name_prefix" {
-  default = "azure-example-12303"
-}
 
 # type username e.g sfyda
 variable "creator" {
   default = "my-name"
 }
+
+

@@ -46,6 +46,6 @@ resource "azurerm_virtual_network" "mynet" {
     deployment = "terraform",
     environment = "${var.environment}",
     type = "${var.type}",
-    creator = "${var.deployer}",
+    creator = "${var.creator}",
   }
 }
